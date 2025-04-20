@@ -1,6 +1,6 @@
 # Usage
 
-dotnet DatabaseVisualizer --connectionString "my-connection-string" --includeSchemas "" --excludeSchemas "" --excludeColumns "" --render "classDiagram;erDiagram" --output "classDiagram.mmd;erDiagram.mmd"
+`dotnet DatabaseVisualizer --connectionString "my-connection-string" --includeSchemas "" --excludeSchemas "" --excludeColumns "" --render "classDiagram;erDiagram" --output "classDiagram.mmd;erDiagram.mmd"`
 
 # Arguments
 
