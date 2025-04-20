@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "DatabaseVisualizer": {
+      "commandName": "Project",
+      "commandLineArgs": "--cs \"Server=tcp:sud-sqlmi-shared-u-001.56736502e342.database.windows.net,1433;Initial Catalog=prism;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;Authentication=Active Directory Default;\" --includeSchemas \"dbo\" --excludeSchemas \"\" --excludeColumns \"Active;ModDate;ModName;CreationDate;CreationName\" --render \"classDiagram;erDiagram[cols:true]\" --output \"c:\\Temp\\File1.mmd;c:\\Temp\\File2.mmd;c:\\Temp\\File3.mmd\""
+    }
+  }
+}
