@@ -1,3 +1,4 @@
+
 namespace DatabaseVisualizer;
 
 public class AppSettings
@@ -25,4 +26,8 @@ public class AppSettings
     public string Output { get; set; } = string.Empty;
 
     public string O { get => Output; set => Output = value; }
+
+    public string? SqlFiles { get; set; }
+
+    public string? Sf { get => SqlFiles; set => SqlFiles = value; }
 }

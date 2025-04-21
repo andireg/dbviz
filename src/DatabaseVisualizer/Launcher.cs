@@ -1,8 +1,10 @@
 ﻿using DatabaseVisualizer.Domain;
 using DatabaseVisualizer.Renderer;
 using DatabaseVisualizer.Renderer.Factory;
+using DatabaseVisualizer.SqlFiles;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Options;
+using System.Data;
 
 namespace DatabaseVisualizer;
 
@@ -16,8 +18,22 @@ internal class Launcher(
         AppSettings appSettings = appSettingsOptions.Value;
 
         IReadOnlyCollection<IDbItemInfo> dbItemInfo;
-        SqlConnection sqlConnection = new(appSettings.ConnectionString);
-        await sqlConnection.OpenAsync(cancellationToken);
+
+        IDbConnection dbConnection;
+        if (!string.IsNullOrWhiteSpace(appSettings.ConnectionString))
+        {
+            dbConnection = new SqlConnection(appSettings.ConnectionString);
+            dbConnection.Open();
+        }
+        else if (!string.IsNullOrWhiteSpace(appSettings.SqlFiles))
+        {
+            dbConnection = await SqlFilesProvider.GetDatabaseConnectionAsync(appSettings.SqlFiles.Split(';'), cancellationToken);
+        }
+        else
+        {
+            throw new InvalidOperationException("Not connectionString not sql files defined");
+        }
+
         try
         {
             databaseParser.IncludeSchemas = appSettings.IncludeSchemas.Split(';');
@@ -27,7 +43,7 @@ internal class Launcher(
         }
         finally
         {
-            await sqlConnection.CloseAsync();
+            dbConnection.Close();
         }
 
         string[] outputFiles = appSettings.Output.Split(';');
